@@ -1,0 +1,15 @@
+SmalltalkCISpec {
+        #loading : [
+                SCIMetacelloLoadSpec {
+                        #baseline : 'IconFactory',
+                        #directory : 'repository',
+                        #platforms : [ #pharo ]
+                }
+        ],
+        #testing : {
+                #packages : [ 'IconFactory' ],
+                #coverage : {
+                  #packages : [ 'IconFactory' ]
+                }
+        }
+}
