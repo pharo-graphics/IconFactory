@@ -105,14 +105,21 @@ IconFactory class >> syncDirectory: aDirectory intoClass: aClassOrName [
 
 { #category : #'private - utilities' }
 IconFactory >> addIconsAccessorTo: aClass [
-	(aClass hasClassVarNamed: 'icons')
-		ifFalse: [ aClass addClassVarNamed: 'icons' ].
-	(aClass class selectors includes: #icons)
-		ifFalse: [ aClass class compile: self iconsAccessorTemplate classified: 'accessing' ].
-	(aClass class selectors includes: #resetIcons)
-		ifFalse: [ aClass class compile: self resetIconsTemplate classified: 'accessing - reset' ].
-	(aClass class selectors includes: #gtInspectorIconsIn:)
-		ifFalse: [ aClass class compile: self gtInspectorTemplate classified: 'GT-InspectorExtensions' ].
+
+	(aClass hasClassVarNamed: 'icons') ifFalse: [
+		aClass addClassVarNamed: 'icons' ].
+	(aClass class selectors includes: #icons) ifFalse: [
+		aClass class
+			compile: self iconsAccessorTemplate
+			classified: 'accessing' ].
+	(aClass class selectors includes: #resetIcons) ifFalse: [
+		aClass class
+			compile: self resetIconsTemplate
+			classified: 'accessing - reset' ].
+	(aClass class selectors includes: #gtInspectorIconsIn:) ifFalse: [
+		aClass class
+			compile: self inspectorTemplate
+			classified: 'InspectorExtensions' ]
 ]
 
 { #category : #'private - utilities' }
@@ -168,19 +175,6 @@ IconFactory >> ensureClassFor: aClassOrName [
 ]
 
 { #category : #'private - templates' }
-IconFactory >> gtInspectorTemplate [
-	^ 'gtInspectorIconsIn: composite
-	<gtInspectorPresentationOrder: 0>
-	<script: ''self inspect''>
-	composite table
-		title: ''Icons'';
-		display: [ (self class selectorsInCategory: ''accessing - icons'') sorted
-				collect: [ :each | each -> (self perform: each) ] ];
-		column: ''Icon'' evaluated: #value width: 50;
-		column: ''Selector'' evaluated: #key'
-]
-
-{ #category : #'private - templates' }
 IconFactory >> iconContentsMethodTemplate [
 	^ '{1}IconContents
 	"Private - Method generated with the content of the file {2}"
@@ -200,6 +194,21 @@ IconFactory >> iconMethodTemplate [
 IconFactory >> iconsAccessorTemplate [
 	^ 'icons
 	^ icons ifNil: [ icons := Dictionary new ]'
+]
+
+{ #category : #'private - templates' }
+IconFactory >> inspectorTemplate [
+
+	^ 'inspectionIcons
+	<inspectorPresentationOrder: 0 title: ''icons''>
+	<script: ''self inspect''>
+	^ SpTablePresenter new
+		  addColumn: (SpImageTableColumn title: ''Icon'' evaluated: #value);
+		  addColumn: (SpStringTableColumn title: ''Name'' evaluated: #key);
+		  items:
+			  ((self class selectorsInCategory: ''accessing - icons'') sorted
+				   collect: [ :each | each -> (self perform: each) ]);
+		  yourself'
 ]
 
 { #category : #loading }
