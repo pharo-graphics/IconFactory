@@ -21,7 +21,7 @@ Or run the following script.
 ```smalltalk
 Metacello new
     baseline: #IconFactory;
-    repository: 'github://peteruhnak/IconFactory/repository';
+    repository: 'github://pharo-graphics/IconFactory/repository';
     load
 ```
 
