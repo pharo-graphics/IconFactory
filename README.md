@@ -1,39 +1,38 @@
-# IconFactory [![Build Status](https://travis-ci.org/peteruhnak/IconFactory.svg?branch=master)](https://travis-ci.org/peteruhnak/IconFactory) [![Coverage Status](https://coveralls.io/repos/github/peteruhnak/IconFactory/badge.svg?branch=master)](https://coveralls.io/github/peteruhnak/IconFactory?branch=master)
+# IconFactory 
+IconFactory is a utility for importing PNG images from a directory into a class developed by Peter Uhnak and maintained by Stéphane Ducasse.
 
-IconFactory is a utility for importing PNG images from a directory into a class.
-
+## Principle
 Each file will be compiled into the **class-side** of the target class as `<fileName>Icon` selector in base64 format. (Icon suffix will not be duplicated.).
 
 This enables you to distribute the images directly with your source code.
-
 Once imported, you can access the `Form` (Pharo's image representation) by sending the appropriate selector, e.g. `MyIcons myCoolIcon`.
-
-![](figures/playground-demo.png)
-
 Only PNG files are currently supported.
 
 ## Installation
 
-Install `IconFactory` from **Catalog Browser**.
-
-Or run the following script.
-
 ```smalltalk
 Metacello new
     baseline: #IconFactory;
-    repository: 'github://peteruhnak/IconFactory/repository';
+    repository: 'github://pharo-graphics/IconFactory/repository';
     load
 ```
 
 ## Loading images into a class
 
 If `MyIcons` class doesn't exist, it will be created in a category of the same name.
-
-This method will install all images not present in #MyIcons and remove all selectors representing images that are not longer present in the directory.
+This method will install all images not present in #MyIcons and remove all selectors representing images that are not longer present in the directory. 
 
 ```smalltalk
 IconFactory
 	syncDirectory: '/home/some/path/myIcons'
+	intoClass: #MyIcons
+```
+
+Note that the paths below can also be given as file reference. For example, if you want to load all the png in your working directory.
+
+```smalltalk
+IconFactory
+	syncDirectory: FileSystem workingDirectory
 	intoClass: #MyIcons
 ```
 
