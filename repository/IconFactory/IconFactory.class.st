@@ -7,20 +7,14 @@ This enables you to distribute the images directly with your source code.
 
 Once imported, you can access the `Form` (Pharo's image representation) by sending the appropriate selector, e.g. `MyIcons myCoolIcon`.
 
-![](figures/playground-demo.png)
-
 Only PNG files are currently supported.
 
 ## Installation
 
-Install `IconFactory` from **Catalog Browser**.
-
-Or run the following script.
-
 ```
 Metacello new
     baseline: #IconFactory;
-    repository: 'github://peteruhnak/IconFactory';
+    repository: 'github://pharo-graphics/IconFactory';
     load
 ```
 
@@ -86,7 +80,7 @@ Depending on the size of the image (tested on 24x24) it can easily be 1000x time
 Class {
 	#name : #IconFactory,
 	#superclass : #Object,
-	#category : 'IconFactory'
+	#category : #IconFactory
 }
 
 { #category : #installing }
