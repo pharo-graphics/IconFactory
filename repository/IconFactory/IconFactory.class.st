@@ -116,7 +116,7 @@ IconFactory >> addIconsAccessorTo: aClass [
 		aClass class
 			compile: self resetIconsTemplate
 			classified: 'accessing - reset' ].
-	(aClass class selectors includes: #gtInspectorIconsIn:) ifFalse: [
+	(aClass class selectors includes: #inspectionIcons) ifFalse: [
 		aClass class
 			compile: self inspectorTemplate
 			classified: 'InspectorExtensions' ]
